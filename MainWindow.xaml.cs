@@ -23,6 +23,13 @@ namespace AlcoholCalculator
         public MainWindow()
         {
             InitializeComponent();
+            // get volume: 500 ml / littleCup(50ml) / middleCup(100ml) / bigCup(150ml) / wineCup(200ml) / beerCup(500ml)
+            // get spiritPercentage: 20% / 
+            // get glassesAmount: 2
+
+            // show overallVolume: volume * glassesAmount
+            // show how much spirit is: overallVolume * spiritPercentage / 100%
         }
+
     }
 }
