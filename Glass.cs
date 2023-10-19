@@ -8,6 +8,8 @@ namespace AlcoholCalculator
 {
     class Glass
     {
+        Dictionary<string, string> GlassDictionary = new Dictionary<string, string>();
+
         public static double LittleCupVolume = 100;
         public static double MiddleCupVolume = 250;
         public static double BigCupVolume = 400;
@@ -24,6 +26,41 @@ namespace AlcoholCalculator
 
         private double _volume;
         private GlassType _glassType;
+
+        private Dictionary<string, int> glassData;
+
+        public string[] FormattedData
+        {
+            get { return glassData.Select(kv => $"{kv.Key} - {kv.Value}ml.").ToArray(); }
+        }
+
+        public Glass()
+        {
+            glassData = new Dictionary<string, int>();
+
+            glassData.Add("LittleCup", 100);
+            glassData.Add("MiddleCup", 250);
+            glassData.Add("BigCup", 400);
+            glassData.Add("Shot", 50);
+            glassData.Add("CoctailGlass", 90);
+            glassData.Add("OldFashioned", 130);
+            glassData.Add("ChampagneFlute", 140);
+            glassData.Add("ArmagnacGlass", 160);
+            glassData.Add("WhiteWineGlass", 180);
+            glassData.Add("RedWineGlass", 200);
+            glassData.Add("CognacBalloon", 240);
+            glassData.Add("Collins", 280);
+            glassData.Add("BeerMug", 500);
+
+        }
+
+        public Dictionary<string, int> GlassData
+        {
+            get
+            {
+                return glassData;
+            }
+        }
 
         public Glass(double volume)
         {

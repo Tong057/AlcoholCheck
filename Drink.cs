@@ -25,6 +25,43 @@ namespace AlcoholCalculator
         private double _spiritPercentage;
         private DrinkType _drinkType;
 
+        private Dictionary<string, int> drinkData;
+
+        public string[] FormattedData
+        {
+            get { return drinkData.Select(kv => $"{kv.Key} - {kv.Value}%").ToArray(); }
+        }
+
+        public Drink()
+        {
+            drinkData = new Dictionary<string, int>();
+
+            drinkData.Add("Beer", 5);
+            drinkData.Add("Champagne", 10);
+            drinkData.Add("WhiteWine", 15);
+            drinkData.Add("RedWine", 20);
+            drinkData.Add("Liquor", 25);
+            drinkData.Add("Vodka", 40);
+            drinkData.Add("Cognac", 42);
+            drinkData.Add("Gin", 45);
+            drinkData.Add("Tequila", 50);
+            drinkData.Add("Brandy", 55);
+            drinkData.Add("Rum", 60);
+            drinkData.Add("Absinthe", 70);
+            drinkData.Add("DrinkingEthanol", 90);
+
+        }
+
+
+
+        public Dictionary<string, int> DrinkData
+        {
+            get
+            {
+                return drinkData;
+            }
+        }
+
         public Drink(double spiritPercentage)
         {
             _spiritPercentage = spiritPercentage;

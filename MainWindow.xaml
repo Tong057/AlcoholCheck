@@ -55,9 +55,49 @@
         </StackPanel>
 
         <Rectangle Height="15" Width="320" RadiusX="5" RadiusY="5"  Margin="0,10,0,10" Fill="#FF313131" />
-        <ComboBox Height="70" Width="320" Style="{StaticResource MaterialDesignFilledComboBox}" IsEditable="True" Margin="0,10,0,10" HorizontalContentAlignment="Center" FontFamily="Dubai Medium" FontSize="20"  />
-        <ComboBox Height="70" Width="320" Style="{StaticResource MaterialDesignFilledComboBox}" IsEditable="True" Margin="0,10,0,10" HorizontalContentAlignment="Center" FontFamily="Dubai Medium" FontSize="20" />
-        <ComboBox Height="70" Width="320" Style="{StaticResource MaterialDesignFilledComboBox}" IsEditable="True" Margin="0,10,0,10" HorizontalContentAlignment="Center" FontFamily="Dubai Medium" FontSize="20"  />
+        <ComboBox x:Name="volumeComboBox" Height="70" Width="320" Style="{StaticResource MaterialDesignFilledComboBox}" IsEditable="True" Margin="0,10,0,10" HorizontalContentAlignment="Center" FontFamily="Dubai Medium" FontSize="20" materialDesign:HintAssist.Hint="Container volume" materialDesign:TextFieldAssist.HasClearButton="True" ItemsSource="{Binding ShortStringList}">
+
+            <ComboBox.SelectedItem>
+                <Binding
+                    Mode="TwoWay"
+                    Path="SelectedValidationFilled"
+                    UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        
+                    </Binding.ValidationRules>
+                </Binding>
+            </ComboBox.SelectedItem>
+
+
+        </ComboBox>
+        <ComboBox x:Name="alcoholComboBox" Height="70" Width="320" Style="{StaticResource MaterialDesignFilledComboBox}" IsEditable="True" Margin="0,10,0,10" HorizontalContentAlignment="Center" FontFamily="Dubai Medium" FontSize="20" materialDesign:HintAssist.Hint="Alcohol percentage" materialDesign:TextFieldAssist.HasClearButton="True" ItemsSource="{Binding ShortStringList}" MaxDropDownHeight="200">
+
+            <ComboBox.SelectedItem>
+                <Binding
+                    Mode="TwoWay"
+                    Path="SelectedValidationFilled"
+                    UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+
+                    </Binding.ValidationRules>
+                </Binding>
+            </ComboBox.SelectedItem>
+
+        </ComboBox>
+        <ComboBox x:Name="dishesComboBox" Height="70" Width="320" Style="{StaticResource MaterialDesignFilledComboBox}" Margin="0,10,0,10" HorizontalContentAlignment="Center" FontFamily="Dubai Medium" FontSize="20"  materialDesign:HintAssist.Hint="Number of dishes" materialDesign:TextFieldAssist.HasClearButton="True" ItemsSource="{Binding ShortStringList}" IsDropDownOpen="True" MaxDropDownHeight="144" SelectedIndex="0">
+
+            <ComboBox.SelectedItem>
+                <Binding
+                    Mode="TwoWay"
+                    Path="SelectedValidationFilled"
+                    UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+
+                    </Binding.ValidationRules>
+                </Binding>
+            </ComboBox.SelectedItem>
+
+        </ComboBox>
         <Button Content="COUNT" Height="80" Width="320" Margin="0,15,0,15" FontFamily="Cascadia Mono SemiBold" FontSize="24" FontWeight="Bold"/>
 
 

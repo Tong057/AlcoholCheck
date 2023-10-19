@@ -20,9 +20,15 @@ namespace AlcoholCalculator
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
+
     {
+
+        private Drink myDrink;
+        private Glass myGlass;
+
         public MainWindow()
         {
+
             InitializeComponent();
             // get volume: 500 ml / littleCup(50ml) / middleCup(100ml) / bigCup(150ml) / wineCup(200ml) / beerCup(500ml)
             // get spiritPercentage: 20% / 
@@ -30,6 +36,20 @@ namespace AlcoholCalculator
 
             // show overallVolume: volume * glassesAmount
             // show how much spirit is: overallVolume * spiritPercentage / 100%
+            myDrink = new Drink();
+            alcoholComboBox.ItemsSource = myDrink.FormattedData;
+
+            myGlass = new Glass();
+            volumeComboBox.ItemsSource = myGlass.FormattedData;
+
+
+            for (int i = 1; i <= 15; i++) 
+            {
+
+                dishesComboBox.Items.Add(i);
+
+            }
+
         }
 
         private void ChangeTheme_Click(object sender, RoutedEventArgs e)
@@ -77,5 +97,23 @@ namespace AlcoholCalculator
                 this.DragMove();
             }
         }
+
+
+
+
+        //comboBox
+
+        /*private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
+            if (sender is ComboBox comboBox)
+            {
+                
+                KeyValuePair<int, string> selectedEntry = (KeyValuePair<int, string>)comboBox.SelectedItem;
+
+                MessageBox.Show($"Выбран ключ: {selectedEntry.Key}, Значение: {selectedEntry.Value}");
+            }
+        }*/
+
     }
 }
