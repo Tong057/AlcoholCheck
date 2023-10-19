@@ -6,12 +6,60 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AlcoholCalculator"
         mc:Ignorable="d"
-        Title="AlcoholCalculator3000" Height="450" Width="800" Icon="/logo.png">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="3*"/>
-            <ColumnDefinition Width="17*"/>
-        </Grid.ColumnDefinitions>
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Style="{StaticResource MaterialDesignWindow}"
+        x:Name="baseWindow"
+        Title="AlcoholCalculator3000" Height="545" Width="380" Icon="/resources/logo.png" Background="#FF1A1A1A" WindowStartupLocation="CenterScreen">
 
-    </Grid>
+
+
+    <StackPanel x:Name="basePanel" Background="Transparent" MouseDown="BasePanel_MouseDown">
+        <StackPanel.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Light Theme" Click="ChangeTheme_Click" />
+                <MenuItem Header="Dark Theme" Click="ChangeTheme_Click" />
+            </ContextMenu>
+        </StackPanel.ContextMenu>
+
+        <StackPanel Height="40" Width="80" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Image x:Name="turnButton" Height="30" HorizontalAlignment="Right" Stretch="Fill" Width="30" MouseDown="TurnButton_MouseDown">
+                <Image.Style>
+                    <Style TargetType="{x:Type Image}">
+                        <Setter Property="Source" Value="/resources/turnWindowIcon.png"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsMouseOver, ElementName=turnButton}" Value="True">
+                                <Setter Property="Source" Value="/resources/turnWindowSelectedIcon.png" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Image.Style>
+            </Image>
+            <Image x:Name="exitButton" Height="30" HorizontalAlignment="Right" Stretch="Fill" Width="30" VerticalAlignment="Center" Margin="10,0,0,0" MouseDown="ExitButton_MouseDown">
+                <Image.Style>
+                    <Style TargetType="{x:Type Image}">
+                        <Setter Property="Source" Value="/resources/exitWindowIcon.png"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsMouseOver, ElementName=exitButton}" Value="True">
+                                <Setter Property="Source" Value="/resources/exitWindowSelectedIcon.png" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Image.Style>
+            </Image>
+        </StackPanel>
+
+        <StackPanel Height="70" Orientation="Horizontal" HorizontalAlignment="Center">
+            <TextBlock Text="AlcoholCheck" Style="{StaticResource MaterialDesignBody1TextBlock}" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="28" FontFamily="Cascadia Mono" Margin="0,0,20,0" FontWeight="Bold"></TextBlock>
+            <Image Source="/resources/logo.png" Stretch="Fill" Height="60" Width="57" VerticalAlignment="Bottom"/>
+        </StackPanel>
+
+        <Rectangle Height="15" Width="320" RadiusX="5" RadiusY="5"  Margin="0,10,0,10" Fill="#FF313131" />
+        <ComboBox Height="70" Width="320" Style="{StaticResource MaterialDesignFilledComboBox}" IsEditable="True" Margin="0,10,0,10" HorizontalContentAlignment="Center" FontFamily="Dubai Medium" FontSize="20"  />
+        <ComboBox Height="70" Width="320" Style="{StaticResource MaterialDesignFilledComboBox}" IsEditable="True" Margin="0,10,0,10" HorizontalContentAlignment="Center" FontFamily="Dubai Medium" FontSize="20" />
+        <ComboBox Height="70" Width="320" Style="{StaticResource MaterialDesignFilledComboBox}" IsEditable="True" Margin="0,10,0,10" HorizontalContentAlignment="Center" FontFamily="Dubai Medium" FontSize="20"  />
+        <Button Content="COUNT" Height="80" Width="320" Margin="0,15,0,15" FontFamily="Cascadia Mono SemiBold" FontSize="24" FontWeight="Bold"/>
+
+
+    </StackPanel>
 </Window>

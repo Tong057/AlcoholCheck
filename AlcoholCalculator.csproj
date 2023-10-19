@@ -8,7 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="cheers.png" />
     <None Remove="logo.png" />
+    <None Remove="Resources\exitWindowIcon.png" />
+    <None Remove="Resources\exitWindowSelectedIcon.png" />
+    <None Remove="Resources\logo.png" />
+    <None Remove="Resources\turnWindowIcon.png" />
+    <None Remove="Resources\turnWindowSelectedIcon.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -16,7 +22,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="logo.png" />
+    <Resource Include="cheers.png" />
+    <Resource Include="Resources\logo.png" />
+    <Resource Include="Resources\exitWindowIcon.png" />
+    <Resource Include="Resources\exitWindowSelectedIcon.png" />
+    <Resource Include="Resources\turnWindowIcon.png" />
+    <Resource Include="Resources\turnWindowSelectedIcon.png" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MaterialDesignThemes.Wpf;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -31,5 +32,50 @@ namespace AlcoholCalculator
             // show how much spirit is: overallVolume * spiritPercentage / 100%
         }
 
+        private void ChangeTheme_Click(object sender, RoutedEventArgs e)
+        {
+            string header = (string)((MenuItem)e.OriginalSource).Header;
+            SetTheme(header);
+        }
+
+        private void SetTheme(string naming)
+        {
+            PaletteHelper palette = new PaletteHelper();
+
+            ITheme theme = palette.GetTheme();
+            if(naming == "Light Theme")
+            {
+                theme.SetBaseTheme(Theme.Light);
+                theme.SetPrimaryColor(Color.FromArgb(0xFF, 0x1A, 0x1A, 0x1A));
+                baseWindow.Background = Brushes.White;
+            }
+            else
+            {
+                theme.SetBaseTheme(Theme.Dark);
+                theme.SetPrimaryColor((Color)ColorConverter.ConvertFromString("#ffc107")); //ffc107
+                baseWindow.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF1A1A1A"));
+            }
+            
+            palette.SetTheme(theme);
+            
+        }
+
+        private void ExitButton_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void TurnButton_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
+        }
+
+        private void BasePanel_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if(e.ChangedButton == MouseButton.Left)
+            {
+                this.DragMove();
+            }
+        }
     }
 }

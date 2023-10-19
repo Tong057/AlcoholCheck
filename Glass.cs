@@ -28,6 +28,7 @@ namespace AlcoholCalculator
         public Glass(double volume)
         {
             _volume = volume;
+            _glassType = GlassType.Glass;
         }
 
         public Glass(GlassType glassType)
@@ -118,7 +119,7 @@ namespace AlcoholCalculator
         CognacBalloon,  // 240
         Collins,   // 280
         BeerMug,   // 500
-        Default
+        Glass
 
     }
 }
