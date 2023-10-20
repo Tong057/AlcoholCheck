@@ -24,7 +24,7 @@ namespace AlcoholCalculator
             return _glass.Volume * _glassAmount;
         }
 
-        public double OverallSpiritPercentageOfDrink()
+        public double OverallSpiritInDrink()
         {
             return OverallVolumeOfDrink() * _drink.SpiritPercentage / 100;
         }

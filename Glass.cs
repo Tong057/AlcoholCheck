@@ -8,8 +8,6 @@ namespace AlcoholCalculator
 {
     class Glass
     {
-        Dictionary<string, string> GlassDictionary = new Dictionary<string, string>();
-
         public static double LittleCupVolume = 100;
         public static double MiddleCupVolume = 250;
         public static double BigCupVolume = 400;
@@ -27,45 +25,33 @@ namespace AlcoholCalculator
         private double _volume;
         private GlassType _glassType;
 
-        private Dictionary<string, int> glassData;
-
-        public string[] FormattedData
+        public static Dictionary<GlassType, int> GlassDictionary { get; private set; } = new Dictionary<GlassType, int>
         {
-            get { return glassData.Select(kv => $"{kv.Key} - {kv.Value}ml.").ToArray(); }
+            {GlassType.Shot, 50},
+            {GlassType.CoctailGlass, 90},
+            {GlassType.LittleCup, 100},
+            {GlassType.OldFashioned, 130},
+            {GlassType.ChampagneFlute, 140},
+            {GlassType.ArmagnacGlass, 160},
+            {GlassType.WhiteWineGlass, 180},
+            {GlassType.RedWineGlass, 200},
+            {GlassType.CognacBalloon, 240},
+            {GlassType.MiddleCup, 250},
+            {GlassType.Collins, 280},
+            {GlassType.BigCup, 400},
+            {GlassType.BeerMug, 500}
+        };
+
+        public static string[] GlassDictionaryToString
+        {
+            get { return GlassDictionary.Select(kv => $"{kv.Key} - {kv.Value}ml").ToArray(); }
         }
 
-        public Glass()
-        {
-            glassData = new Dictionary<string, int>();
-
-            glassData.Add("LittleCup", 100);
-            glassData.Add("MiddleCup", 250);
-            glassData.Add("BigCup", 400);
-            glassData.Add("Shot", 50);
-            glassData.Add("CoctailGlass", 90);
-            glassData.Add("OldFashioned", 130);
-            glassData.Add("ChampagneFlute", 140);
-            glassData.Add("ArmagnacGlass", 160);
-            glassData.Add("WhiteWineGlass", 180);
-            glassData.Add("RedWineGlass", 200);
-            glassData.Add("CognacBalloon", 240);
-            glassData.Add("Collins", 280);
-            glassData.Add("BeerMug", 500);
-
-        }
-
-        public Dictionary<string, int> GlassData
-        {
-            get
-            {
-                return glassData;
-            }
-        }
 
         public Glass(double volume)
         {
             _volume = volume;
-            _glassType = GlassType.Glass;
+            _glassType = GlassType.CustomGlass;
         }
 
         public Glass(GlassType glassType)
@@ -92,49 +78,7 @@ namespace AlcoholCalculator
 
         private void SetVolumeFromGlassType(GlassType glassType)
         {
-            switch (glassType)
-            {
-                case GlassType.LittleCup: 
-                    _volume = LittleCupVolume;
-                    return;
-                case GlassType.MiddleCup: 
-                    _volume = MiddleCupVolume;
-                    return;
-                case GlassType.BigCup: 
-                    _volume = BigCupVolume;
-                    return;
-                case GlassType.Shot: 
-                    _volume = ShotVolume;
-                    return;
-                case GlassType.CoctailGlass: 
-                    _volume = CoctailGlassVolume;
-                    return;
-                case GlassType.OldFashioned: 
-                    _volume = OldFashionedVolume;
-                    return;
-                case GlassType.ChampagneFlute: 
-                    _volume = ChampagneFluteVolume;
-                    return;
-                case GlassType.ArmagnacGlass:
-                    _volume = ArmagnacGlassVolume;
-                    return;
-                case GlassType.WhiteWineGlass:
-                    _volume = WhiteWineGlassVolume;
-                    return;
-                case GlassType.RedWineGlass:
-                    _volume = RedWineGlassVolume;
-                    return;
-                case GlassType.CognacBalloon:
-                    _volume = CognacBalloonVolume;
-                    return;
-                case GlassType.Collins: 
-                    _volume = CollinsVolume;
-                    return;
-                case GlassType.BeerMug: 
-                    _volume = BeerMugVolume;
-                    return;
-
-            }
+            _volume = GlassDictionary[glassType];
         }
 
 
@@ -156,7 +100,7 @@ namespace AlcoholCalculator
         CognacBalloon,  // 240
         Collins,   // 280
         BeerMug,   // 500
-        Glass
+        CustomGlass
 
     }
 }

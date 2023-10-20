@@ -1,18 +1,10 @@
 ﻿using MaterialDesignThemes.Wpf;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Windows.Media.Effects;
 
 namespace AlcoholCalculator
 {
@@ -20,11 +12,8 @@ namespace AlcoholCalculator
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
-
     {
 
-        private Drink myDrink;
-        private Glass myGlass;
 
         public MainWindow()
         {
@@ -36,20 +25,23 @@ namespace AlcoholCalculator
 
             // show overallVolume: volume * glassesAmount
             // show how much spirit is: overallVolume * spiritPercentage / 100%
-            myDrink = new Drink();
-            alcoholComboBox.ItemsSource = myDrink.FormattedData;
 
-            myGlass = new Glass();
-            volumeComboBox.ItemsSource = myGlass.FormattedData;
+            //alcoholComboBox.ItemsSource = myDrink.FormattedData;
+
+            SetComboBoxes();
 
 
-            for (int i = 1; i <= 15; i++) 
+        }
+
+        private void SetComboBoxes()
+        {
+            glassVolumeComboBox.ItemsSource = Glass.GlassDictionaryToString;
+            alcoholPercentageComboBox.ItemsSource = Drink.DrinkDictionaryToString;
+
+            for (int i = 1; i <= 10; i++)
             {
-
-                dishesComboBox.Items.Add(i);
-
+                glassNumberComboBox.Items.Add(i);
             }
-
         }
 
         private void ChangeTheme_Click(object sender, RoutedEventArgs e)
@@ -63,7 +55,7 @@ namespace AlcoholCalculator
             PaletteHelper palette = new PaletteHelper();
 
             ITheme theme = palette.GetTheme();
-            if(naming == "Light Theme")
+            if (naming == "Light Theme")
             {
                 theme.SetBaseTheme(Theme.Light);
                 theme.SetPrimaryColor(Color.FromArgb(0xFF, 0x1A, 0x1A, 0x1A));
@@ -75,9 +67,9 @@ namespace AlcoholCalculator
                 theme.SetPrimaryColor((Color)ColorConverter.ConvertFromString("#ffc107")); //ffc107
                 baseWindow.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF1A1A1A"));
             }
-            
+
             palette.SetTheme(theme);
-            
+
         }
 
         private void ExitButton_MouseDown(object sender, MouseButtonEventArgs e)
@@ -92,28 +84,87 @@ namespace AlcoholCalculator
 
         private void BasePanel_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if(e.ChangedButton == MouseButton.Left)
+            if (e.ChangedButton == MouseButton.Left)
             {
                 this.DragMove();
             }
         }
 
-
-
-
-        //comboBox
-
-        /*private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ApplyBlurEffect(Window window)
         {
-            
-            if (sender is ComboBox comboBox)
-            {
-                
-                KeyValuePair<int, string> selectedEntry = (KeyValuePair<int, string>)comboBox.SelectedItem;
+            BlurEffect objBlur = new BlurEffect();
+            objBlur.Radius = 5;
+            window.Effect = objBlur;
+        }
 
-                MessageBox.Show($"Выбран ключ: {selectedEntry.Key}, Значение: {selectedEntry.Value}");
+        private void ClearBlurEffect(Window window)
+        {
+            window.Effect = null;
+        }
+
+        private void Count_Click(object sender, RoutedEventArgs e)
+        {
+            if (glassVolumeComboBox.Text == "" || alcoholPercentageComboBox.Text == "" || glassNumberComboBox.Text == "")
+            {
+                new MessageBoxCustom("Oops.. Some fields are empty.", MessageType.Error, MessageButtons.Ok, this);
             }
-        }*/
+            else
+            {
+                Drink drink;
+                Glass glass;
+
+                DrinkType drinkType = GetDrinkTypeFromSelectedText();
+                if (drinkType != DrinkType.CustomDrink)
+                    drink = new Drink(drinkType);
+                else if (int.TryParse(alcoholPercentageComboBox.Text, out int spiritPercentage))
+                    drink = new Drink(spiritPercentage);
+                else
+                    return;
+
+                GlassType glassType = GetGlassTypeFromSelectedText();
+                if (glassType != GlassType.CustomGlass)
+                    glass = new Glass(glassType);
+                else if (int.TryParse(glassVolumeComboBox.Text, out int glassVolume))
+                    glass = new Glass(glassVolume);
+                else
+                    return;
+
+                int.TryParse(glassNumberComboBox.Text, out int glassNumber);
+
+                AlcoholDrinkCalculator calculator = new AlcoholDrinkCalculator(drink, glass, glassNumber);
+
+                new ResultMessageBox(calculator.OverallVolumeOfDrink(), calculator.OverallSpiritInDrink(), this);
+            }
+
+        }
+
+        private DrinkType GetDrinkTypeFromSelectedText()
+        {
+            foreach (var kvp in Drink.DrinkDictionary)
+            {
+                if (alcoholPercentageComboBox.Text.Contains($"{kvp.Key} - {kvp.Value}%"))
+                {
+                    return kvp.Key;
+                }
+            }
+            return DrinkType.CustomDrink;
+        }
+
+        private GlassType GetGlassTypeFromSelectedText()
+        {
+            foreach (var kvp in Glass.GlassDictionary)
+            {
+                if (glassVolumeComboBox.Text.Contains($"{kvp.Key} - {kvp.Value}ml"))
+                {
+                    return kvp.Key;
+                }
+            }
+            return GlassType.CustomGlass;
+        }
+
+
+
+
 
     }
 }

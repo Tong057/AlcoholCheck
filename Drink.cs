@@ -8,64 +8,50 @@ namespace AlcoholCalculator
 {
     class Drink
     {
-        public static double BeerPercentage = 5;
-        public static double ChampagnePercentage = 10;
-        public static double WhiteWinePercentage = 15;
-        public static double RedWinePercentage = 20;
-        public static double LiquorPercentage = 25;
-        public static double VodkaPercentage = 40;
-        public static double СognacPercentage = 42;
-        public static double GinPercentage = 45;
-        public static double TequilaPercentage = 50;
-        public static double BrandyPercentage = 55;
-        public static double RumPercentage = 60;
-        public static double AbsinthePercentage = 70;
-        public static double DrinkingEthanolPercentage = 90;
+        public static int BeerPercentage = 5;
+        public static int ChampagnePercentage = 10;
+        public static int WhiteWinePercentage = 15;
+        public static int RedWinePercentage = 20;
+        public static int LiquorPercentage = 25;
+        public static int VodkaPercentage = 40;
+        public static int СognacPercentage = 42;
+        public static int GinPercentage = 45;
+        public static int TequilaPercentage = 50;
+        public static int BrandyPercentage = 55;
+        public static int RumPercentage = 60;
+        public static int AbsinthePercentage = 70;
+        public static int DrinkingEthanolPercentage = 90;
 
         private double _spiritPercentage;
         private DrinkType _drinkType;
 
-        private Dictionary<string, int> drinkData;
-
-        public string[] FormattedData
+        public static Dictionary<DrinkType, int> DrinkDictionary { get; private set; } = new Dictionary<DrinkType, int>
         {
-            get { return drinkData.Select(kv => $"{kv.Key} - {kv.Value}%").ToArray(); }
+            { DrinkType.Beer, BeerPercentage },
+            { DrinkType.Champagne, ChampagnePercentage },
+            { DrinkType.WhiteWine, WhiteWinePercentage },
+            { DrinkType.RedWine, RedWinePercentage },
+            { DrinkType.Liquor, LiquorPercentage },
+            { DrinkType.Vodka, VodkaPercentage },
+            { DrinkType.Cognac, СognacPercentage },
+            { DrinkType.Gin, GinPercentage },
+            { DrinkType.Tequila, TequilaPercentage },
+            { DrinkType.Brandy, BrandyPercentage },        
+            { DrinkType.Rum, RumPercentage },
+            { DrinkType.Absinthe, AbsinthePercentage },
+            { DrinkType.DrinkingEthanol, DrinkingEthanolPercentage }
+        }; 
+
+        public static string[] DrinkDictionaryToString
+        {
+            get { return DrinkDictionary.Select(kv => $"{kv.Key} - {kv.Value}%").ToArray(); }
         }
 
-        public Drink()
-        {
-            drinkData = new Dictionary<string, int>();
-
-            drinkData.Add("Beer", 5);
-            drinkData.Add("Champagne", 10);
-            drinkData.Add("WhiteWine", 15);
-            drinkData.Add("RedWine", 20);
-            drinkData.Add("Liquor", 25);
-            drinkData.Add("Vodka", 40);
-            drinkData.Add("Cognac", 42);
-            drinkData.Add("Gin", 45);
-            drinkData.Add("Tequila", 50);
-            drinkData.Add("Brandy", 55);
-            drinkData.Add("Rum", 60);
-            drinkData.Add("Absinthe", 70);
-            drinkData.Add("DrinkingEthanol", 90);
-
-        }
-
-
-
-        public Dictionary<string, int> DrinkData
-        {
-            get
-            {
-                return drinkData;
-            }
-        }
 
         public Drink(double spiritPercentage)
         {
             _spiritPercentage = spiritPercentage;
-            _drinkType = DrinkType.Moonshine;
+            _drinkType = DrinkType.CustomDrink;
         }
 
         public Drink(DrinkType drinkType)
@@ -93,49 +79,7 @@ namespace AlcoholCalculator
 
         private void SetSpiritPercentageFromDrinkType(DrinkType drinkType)
         {
-            switch (drinkType)
-            {
-                case DrinkType.Beer:
-                    _spiritPercentage = BeerPercentage;
-                    return;
-                case DrinkType.Champagne:
-                    _spiritPercentage = ChampagnePercentage;
-                    return;
-                case DrinkType.WhiteWine:
-                    _spiritPercentage = WhiteWinePercentage;
-                    return;
-                case DrinkType.RedWine:
-                    _spiritPercentage = RedWinePercentage;
-                    return;
-                case DrinkType.Liquor:
-                    _spiritPercentage = LiquorPercentage;
-                    return;
-                case DrinkType.Vodka:
-                    _spiritPercentage = VodkaPercentage;
-                    return;
-                case DrinkType.Сognac:
-                    _spiritPercentage = СognacPercentage;
-                    return;
-                case DrinkType.Gin:
-                    _spiritPercentage = GinPercentage;
-                    return;
-                case DrinkType.Tequila:
-                    _spiritPercentage = TequilaPercentage;
-                    return;
-                case DrinkType.Brandy:
-                    _spiritPercentage = BrandyPercentage;
-                    return;
-                case DrinkType.Rum:
-                    _spiritPercentage = RumPercentage;
-                    return;
-                case DrinkType.Absinthe:
-                    _spiritPercentage = AbsinthePercentage;
-                    return;
-                case DrinkType.DrinkingEthanol:
-                    _spiritPercentage = DrinkingEthanolPercentage;
-                    return;
-
-            }
+            _spiritPercentage = DrinkDictionary[drinkType];
         }
     }
 
@@ -147,14 +91,14 @@ namespace AlcoholCalculator
         RedWine,    // 20%
         Liquor,     // 25%
         Vodka,      // 40%
-        Сognac,     // 42%
+        Cognac,     // 42%
         Gin,        // 45%
         Tequila,    // 50%
         Brandy,     // 55%
         Rum,        // 60%
         Absinthe,   // 70%
         DrinkingEthanol, // 90%
-        Moonshine   // Самогон
+        CustomDrink
 
     }
 }
