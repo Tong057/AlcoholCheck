@@ -17,19 +17,8 @@ namespace AlcoholCalculator
 
         public MainWindow()
         {
-
             InitializeComponent();
-            // get volume: 500 ml / littleCup(50ml) / middleCup(100ml) / bigCup(150ml) / wineCup(200ml) / beerCup(500ml)
-            // get spiritPercentage: 20% / 
-            // get glassesAmount: 2
-
-            // show overallVolume: volume * glassesAmount
-            // show how much spirit is: overallVolume * spiritPercentage / 100%
-
-            //alcoholComboBox.ItemsSource = myDrink.FormattedData;
-
             SetComboBoxes();
-
 
         }
 
@@ -60,6 +49,7 @@ namespace AlcoholCalculator
                 theme.SetBaseTheme(Theme.Light);
                 theme.SetPrimaryColor(Color.FromArgb(0xFF, 0x1A, 0x1A, 0x1A));
                 baseWindow.Background = Brushes.White;
+                
             }
             else
             {
@@ -88,18 +78,6 @@ namespace AlcoholCalculator
             {
                 this.DragMove();
             }
-        }
-
-        private void ApplyBlurEffect(Window window)
-        {
-            BlurEffect objBlur = new BlurEffect();
-            objBlur.Radius = 5;
-            window.Effect = objBlur;
-        }
-
-        private void ClearBlurEffect(Window window)
-        {
-            window.Effect = null;
         }
 
         private void Count_Click(object sender, RoutedEventArgs e)
@@ -134,6 +112,7 @@ namespace AlcoholCalculator
                 AlcoholDrinkCalculator calculator = new AlcoholDrinkCalculator(drink, glass, glassNumber);
 
                 new ResultMessageBox(calculator.OverallVolumeOfDrink(), calculator.OverallSpiritInDrink(), this);
+                
             }
 
         }

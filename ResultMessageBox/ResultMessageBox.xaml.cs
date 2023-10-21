@@ -1,6 +1,10 @@
-﻿using System.Windows;
+﻿using MaterialDesignThemes.Wpf;
+using System;
+using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Effects;
+using System.Windows.Media.Imaging;
 
 namespace AlcoholCalculator
 {
@@ -15,13 +19,25 @@ namespace AlcoholCalculator
             InitializeComponent();
             _window = window;
             btnOk.Visibility = Visibility.Visible;
-            overallVolumeTextBlock.Text += "\n" + overallVolume.ToString() + "ml";
-            overallSpiritTextBlock.Text += "\n" + overallSpirit.ToString() + "ml";
+            overallVolumeTextBlock.Text = overallVolume.ToString() + "ml";
+            overallSpiritTextBlock.Text = overallSpirit.ToString() + "ml";
             ApplyBlurEffect();
+            SetTheme();    
             this.ShowDialog();
 
-
         }
+
+        private void SetTheme()
+        {
+            PaletteHelper palette = new PaletteHelper();
+            ITheme theme = palette.GetTheme();
+
+            if (theme.GetBaseTheme().Equals(BaseTheme.Light))
+            {
+                baseResultWindow.Background = Brushes.White;
+            }
+        }
+
         private void btnOk_Click(object sender, RoutedEventArgs e)
         {
             this.DialogResult = true;
